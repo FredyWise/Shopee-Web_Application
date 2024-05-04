@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/mainFragments :: mainHead ('Account','tag')}"></div>
+    <link rel="stylesheet" type="text/css" href="/css/util/popUp.css">
+</head>
+<body>
+<div th:replace="~{fragments/mainFragments :: simpleHeader('Account Settings', 'all')}"></div>
+
+<main>
+    <div class="my-3 container color-background d-flex justify-content-center align-items-center">
+        <div th:replace="~{fragments/sideFragments :: userInfoSidebar}"></div>
+        <div class="col-md-8 col-sm-7 p-3">
+            <div class="row mx-md-5 px-md-5" th:unless="${orders.isEmpty()}">
+                <div class="row border-1 border-black rounded color-background m-1" th:each="order : ${orders}">
+                    <span th:text="${order.orderDate}"></span>
+                    <div class="row border-1 border-black rounded color-background m-1"
+                         th:each="orderItem : ${order.getOrderItems()}">
+                        <div class="col-md-5 d-flex align-items-center my-3 ">
+                            <img th:if="${orderItem.item.image != null}"
+                                 th:src="@{'/img/UserImage/' + ${orderItem.item.image}}"
+                                 alt="Image" class="rounded" height="65" width="65">
+                            <img th:unless="${orderItem.item.image != null}" src="/img/Default.jpg" alt="Default Image"
+                                 class="rounded" height="65" width="65">
+                            <h6 class="mx-3" th:text="${orderItem.item.name}">Product Name</h6>
+                        </div>
+                        <div class="col-md-7 d-flex justify-content-between align-items-center">
+                            <p class="m-1">Price: $<span th:text="${orderItem.item.price}">N/A</span></p>
+                            <p class="m-1">Quantity: <span th:text="${orderItem.quantity}">N/A</span></p>
+                            <p class="m-1">Status: <span th:text="${order.status}">N/A</span></p>
+                            <!--                        <a class="btn btn-danger my-1" th:href="@{/user/delCart/{id}(id=${order.orderId})}">Remove</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 th:if="${orders.isEmpty()}">
+                You haven't buy anything
+            </h1>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/mainFragments :: script}"></div>
+<script src="/js/popUp.js">
+</script>
+</body>
+</html>

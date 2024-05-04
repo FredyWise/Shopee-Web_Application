@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/mainFragments :: mainHead ('business','tag')}"></div>
+    <link rel="stylesheet" type="text/css" href="/css/util/expandText.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/mainFragments :: mainHeader('Shopee Mall')}"></div>
+<main>
+    <div class="container p-4 d-flex align-items-center">
+        <div class="row mx-md-5 px-md-5">
+            <div th:each="business : ${businessList}" class="col-md-4 col-sm-6 mb-3">
+                <a th:href="@{shop/{id}(id=${business.businessId})}" class="card text-default text-black">
+                    <img th:if="${business.image != null}" th:src="@{'/img/UserImage/' + ${business.image}}"
+                         class="card-img-top" alt="Image" height="250">
+                    <img th:unless="${business.image != null}" src="/img/Default.jpg" class="card-img-top"
+                         alt="Default Image" height="250">
+                    <div class="card-body">
+                        <h2 class="card-title" th:text="${business.name}">Store Name</h2>
+                        <div class="col">
+                            <p class="card-text">Rating:
+                                <span th:text="${business.rating}">0.0</span>
+                            </p>
+                            <p class="card-text">Phone:
+                                <span th:text="${business.phoneNumber}">N/A</span>
+                            </p>
+                            <p class="card-text ">Address:
+                                <span class="toggle-show" onclick="return false" th:text="${business.businessAddress.toString()}">N/A</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/mainFragments :: mainFooter}"></div>
+<div th:replace="~{fragments/mainFragments :: script}"></div>
+<script src="/js/expandText.js"></script>
+</body>
+</html>

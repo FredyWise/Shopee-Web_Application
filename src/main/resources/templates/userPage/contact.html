@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/mainFragments :: mainHead ('Account','tag')}"></div>
+    <link rel="stylesheet" type="text/css" href="/css/util/popUp.css">
+</head>
+<body>
+<div th:replace="~{fragments/mainFragments :: simpleHeader('Account Settings', 'all')}"></div>
+
+<main>
+    <div class="my-3 container color-background d-flex justify-content-center align-items-center">
+        <div th:replace="~{fragments/sideFragments :: userInfoSidebar}"></div>
+        <div class="col-md-8 col-sm-7 p-3">
+            <div class="card">
+                <div class="card-header d-flex justify-content-center align-items-center color-primary">
+                    <img th:if="${user.image != null}" th:src="@{'/img/UserImage/' + ${user.image}}"
+                         alt="Image" class="rounded-circle" height="100" width="100">
+                    <img th:unless="${user.image != null}" src="/img/Default.jpg" alt="Default Image"
+                         class="rounded-circle" height="100" width="100">
+                    <h1 th:text="${user.username}" class="px-3"></h1>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Email:</strong> <span th:text="${user.email}"></span></li>
+                        <li class="list-group-item"><strong>Phone Number:</strong> <span
+                                th:text="${user.phoneNumber}"></span></li>
+                        <li class="list-group-item"><strong>Role:</strong> <span th:text="${user.role}"></span></li>
+                        <li class="list-group-item"><strong>Birth Date:</strong> <span
+                                th:text="${user.birthDate}"></span></li>
+                        <li class="list-group-item"><strong>Gender:</strong> <span th:text="${user.gender}"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/mainFragments :: script}"></div>
+<script src="/js/popUp.js">
+</script>
+</body>
+</html>

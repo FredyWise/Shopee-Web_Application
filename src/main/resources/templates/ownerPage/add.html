@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/mainFragments :: mainHead ('business','tag')}"></div>
+    <link rel="stylesheet" type="text/css" href="/css/store.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/form.css">
+    <link rel="stylesheet" type="text/css" href="/css/util/popUp.css">
+    <link type="text/css" href="/css/fragment/form.css">
+</head>
+<body>
+<div class="container-md sidenav">
+    <div th:replace="~{fragments/sideFragments :: sidebar}"></div>
+    <div class="container-md mx-sm-1 mx-md-5 ">
+        <div class="my-5 d-flex justify-content-center w-100">
+            <div class="bg-white p-4 w-75 rounded form h-75 form">
+                <form action="#" th:action="@{/owner/add/}" th:object="${item}" method="post"
+                      enctype="multipart/form-data">
+                    <span class="fs-3">Add Item</span>
+                    <div class="my-2">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" th:value="*{name}" class="form-control" required/>
+                        <div class="invalid-feedback">
+                            Please enter a name.
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" th:field="*{description}" name="description"
+                               class="form-control" required/>
+                        <div class="invalid-feedback">
+                            Please enter a description for the item.
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="category">Category:</label>
+                        <select id="category" th:field="*{category.name}" class="form-select" required>
+                            <option value="" selected>Select Category</option>
+                            <option th:each="categoryItem : ${categories}" th:value="${categoryItem.name}">
+                                <div th:text="${categoryItem.name}"/>
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose a category.
+                        </div>
+                    </div>
+                    <div class="my-2 w-100 d-flex justify-content-center align-items-center">
+                        <img id="image-original" th:if="${item.image != null}" th:src="@{'/img/UserImage/' + ${item.image}}"
+                             alt="Image" class="rounded-circle" height="100" width="100">
+                        <img id="image-preview" src="#" alt="Preview" style="display: none;"
+                             class="rounded" height="100" width="100">
+                        <input type="file" id="image" name="image" accept="image/*" th:field="*{tempFile}"
+                               class="row m-2"/>
+                    </div>
+                    <div class="my-2">
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" th:field="*{price}" class="form-control"
+                               step="0.01" required>
+                        <div class="invalid-feedback">
+                            Please enter the price.
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" th:field="*{quantity}" class="form-control"
+                               step="1" required>
+                        <div class="invalid-feedback">
+                            Please input the quantity.
+                        </div>
+                    </div>
+                    <div th:if="${error}" class="error-message">
+                        <p th:text="${error}"></p>
+                    </div>
+                    <button id="submit-button" type="submit" class="btn color-primary float-end">Add Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/previewImage.js"></script>
+<script src="/js/popUp.js"></script>
+<div th:replace="~{fragments/mainFragments :: script}"></div>
+</body>
+</html>

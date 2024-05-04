@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/authFragments :: authHead (Login)}"></head>
+<body>
+<header th:replace="~{fragments/authFragments :: authHeader}"></header>
+
+<main>
+    <div class="container bg-light pb-5 p-4 m-5 col-md-4 rounded form">
+        <h3 class="text-center">Owner Registration</h3>
+        <form th:action="@{/auth/register/owner}" method="post" th:object="${business}">
+            <div class="mb-3">
+                <label for="businessName" class="form-label">Business Name:</label>
+                <input type="text" class="form-control" id="businessName" name="name" th:field="*{name}" required>
+            </div>
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}"
+                       required>
+            </div>
+            <div class="mb-3">
+                <label for="addressLine" class="form-label">Address Line:</label>
+                <input type="text" class="form-control" id="addressLine" name="businessAddress.addressLine"
+                       th:field="*{businessAddress.addressLine}" required>
+            </div>
+            <div class="mb-3">
+                <label for="city" class="form-label">City:</label>
+                <select class="form-select" id="city" name="businessAddress.geographicLocation.city"
+                        th:field="*{businessAddress.geographicLocation.city}" required>
+                    <option value="">Select City</option>
+                    <option th:each="location : ${geographicLocation}" th:value="${location.city}"
+                            th:text="${location.city}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="state" class="form-label">State:</label>
+                <select class="form-select" id="state" name="businessAddress.geographicLocation.state"
+                        th:field="*{businessAddress.geographicLocation.state}" required>
+                    <option value="">Select State</option>
+                    <option th:each="location : ${geographicLocation}" th:value="${location.state}"
+                            th:text="${location.state}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Country:</label>
+                <select class="form-select" id="country" name="businessAddress.geographicLocation.country"
+                        th:field="*{businessAddress.geographicLocation.country}" required>
+                    <option value="">Select Country</option>
+                    <option th:each="location : ${geographicLocation}" th:value="${location.country}"
+                            th:text="${location.country}"></option>
+                </select>
+            </div>
+            <div th:if="${error}" class="error-message">
+                <p class="error-message" th:text="${error}"></p>
+            </div>
+            <div class="mb-3 text-center">
+                <button id="submit-button" type="submit" class="btn btn-primary btn-block">Register</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/authFragments :: authFooter}"></footer>
+
+</body>
+</html>

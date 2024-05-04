@@ -1,0 +1,18 @@
+@import "style.css";
+
+.search-bar {
+    flex-grow: 1;
+    width: auto;
+    outline: none;
+}
+
+.search-button {
+    background-color:  var(--primary-color);
+    color: var(--onPrimary-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}

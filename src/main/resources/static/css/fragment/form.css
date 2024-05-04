@@ -1,0 +1,16 @@
+@import 'style.css';
+
+#submit-button{
+    width: 100%;
+    background-color: var(--primary-color);
+}
+
+.form {
+    min-width: 30vw;
+}
+
+#image-preview {
+    display: block;
+    margin-top: 5px;
+    max-width: 200px;
+}

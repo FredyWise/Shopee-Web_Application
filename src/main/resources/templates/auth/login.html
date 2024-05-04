@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/authFragments :: authHead (Login)}"></head>
+
+<body>
+<header th:replace="~{fragments/authFragments :: authHeader}"></header>
+
+<main>
+    <div class="bg-light pb-5 p-4 m-5 col-md-3 rounded form">
+        <h3>Log In</h3>
+        <form th:action="@{/login/authentication}" method="post">
+            <div class="my-2">
+                <label for="usernameOrEmail">Username or Email:</label>
+                <input type="text" class="form-control" id="usernameOrEmail" name="username" required>
+            </div>
+            <div class="my-2">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" minlength="8" required>
+            </div>
+            <div class="my-2 form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me">
+                <label class="form-check-label" for="rememberMe">Remember Me</label>
+            </div>
+            <div class="my-2 text-center">
+                <button id="submit-button" type="submit" class="btn btn-primary btn-block">Login</button>
+            </div>
+            <div th:if="${param.error}" class="alert alert-danger">
+                <p th:text="${param.error}"></p>
+            </div>
+        </form>
+        <div class="register-link text-center mt-4">
+            new to shopee? <a class="color-text-primary" href="/auth/register">Register now</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/authFragments :: authFooter}"></footer>
+
+</body>
+</html>

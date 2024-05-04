@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/mainFragments :: mainHead ('business','tag')}"></div>
+    <link rel="stylesheet" type="text/css" href="/css/store.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/form.css">
+    <link rel="stylesheet" type="text/css" href="/css/util/popUp.css">
+    <link type="text/css" href="/css/fragment/form.css">
+</head>
+<body>
+
+<div class="container-md sidenav">
+    <div th:replace="~{fragments/sideFragments :: sidebar}"></div>
+    <div class="container-md px-sm-5 mx-sm-1 mx-md-5">
+        <div class="my-5 d-flex justify-content-center w-100">
+            <div class="bg-white p-4 w-75 rounded form h-75 form">
+                <form th:action="@{/owner/edit}" th:object="${business}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="imageN" th:field="*{image}">
+                    <input type="hidden" id="businessId" th:field="*{businessId}">
+                    <input type="hidden" id="ownerId" th:field="*{ownerId}">
+                    <span class="fs-3">Edit Business</span>
+                    <div class="my-2 w-100 d-flex justify-content-center align-items-center">
+                        <img id="image-original" th:if="${business.image != null}" th:src="@{'/img/UserImage/' + ${business.image}}"
+                             alt="Image" class="rounded-circle" height="100" width="100">
+                        <img id="image-preview" src="#" alt="Preview" style="display: none;"
+                             class="rounded-circle" height="100" width="100">
+                        <input type="file" id="image" name="image" accept="image/*" th:field="*{tempFile}"
+                               class="row m-2"/>
+                    </div>
+                    <div class="my-2">
+                        <label for="businessName">Business Name:</label>
+                        <input type="text" id="businessName" name="name" th:value="*{name}" class="form-control"
+                               required/>
+                        <div class="invalid-feedback">
+                            Please enter a name.
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" th:value="*{phoneNumber}"
+                               class="form-control" required/>
+                        <div class="invalid-feedback">
+                            Please enter a phone number.
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="addressLine">Address Line:</label>
+                        <input type="text" id="addressLine" name="businessAddress.addressLine"
+                               th:field="*{businessAddress.addressLine}" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please enter your store address.
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="city" class="form-label">City:</label>
+                        <select class="form-select" id="city" name="businessAddress.geographicLocation.city"
+                                th:field="*{businessAddress.geographicLocation.city}" required>
+                            <option value="">Select City</option>
+                            <option th:each="location : ${geographicLocation}" th:value="${location.city}"
+                                    th:text="${location.city}"></option>
+                        </select>
+                    </div>
+                    <div class="my-2">
+                        <label for="state" class="form-label">State:</label>
+                        <select class="form-select" id="state" name="businessAddress.geographicLocation.state"
+                                th:field="*{businessAddress.geographicLocation.state}" required>
+                            <option value="">Select State</option>
+                            <option th:each="location : ${geographicLocation}" th:value="${location.state}"
+                                    th:text="${location.state}"></option>
+                        </select>
+                    </div>
+                    <div class="my-2">
+                        <label for="country" class="form-label">Country:</label>
+                        <select class="form-select" id="country" name="businessAddress.geographicLocation.country"
+                                th:field="*{businessAddress.geographicLocation.country}" required>
+                            <option value="">Select Country</option>
+                            <option th:each="location : ${geographicLocation}" th:value="${location.country}"
+                                    th:text="${location.country}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${error}" class="error-message">
+                        <p th:text="${error}"></p>
+                    </div>
+                    <button id="submit-button" type="submit" class="btn color-primary float-end">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/mainFragments :: script}"></div>
+<script src="/js/previewImage.js"></script>
+<script src="/js/popUp.js"></script>
+</body>
+</html>

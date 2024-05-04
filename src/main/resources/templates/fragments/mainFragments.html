@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="mainHead (pageTitle, type = 'none')" th:remove="${type}">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Shopee</title>
+    <link rel="stylesheet" href="/bootstrap5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/headings.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/image.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/search.css">
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+</head>
+<body>
+
+<nav th:fragment="mainNav" class="row color-primary py-1">
+    <div>
+        <div class="container-md">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center justify-content-start">
+                    <a href="#" class="small text-default color-text-onPrimary mx-1">Go to Seller Center</a> |
+                    <a href="#" class="small text-default color-text-onPrimary mx-1">Download</a> |
+                    <a href="#" class="small text-default color-text-onPrimary mx-1">Follow us on</a>
+                </div>
+                <div class="d-flex align-items-center justify-content-end">
+                    <a href="#" class="small text-default color-text-onPrimary mx-2 d-flex align-items-center">
+                        <i class="material-icons px-2">notifications_active</i>Notification
+                    </a>
+                    <a href="#" class="small text-default color-text-onPrimary mx-2 d-flex align-items-center">
+                        <i class="material-icons px-2">help</i>Help
+                    </a>
+                    <a class="text-default color-text-onPrimary mx-2 d-flex align-items-center" href="/user/contact">
+                        <img th:if="${user.image != null}" th:src="@{'/img/UserImage/' + ${user.image}}"
+                             alt="Image" class="rounded-circle" height="30" width="30">
+                        <img th:unless="${user.image != null}" src="/img/Default.jpg" alt="Default Image"
+                             class="rounded-circle" height="30" width="30">
+                        <span class="px-2" th:text="${user.username}">username</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header th:fragment="homeHeader(title)" class="text-center fixed-top color-primary shadow-sm">
+    <div th:replace="~{this :: mainNav}"></div>
+    <div class="py-0 my-0 container-md">
+        <div class="row my-2 color-primary">
+            <div class="col-md-2 col-sm-3">
+                <a class="navbar-brand d-flex align-items-end justify-content-start" href="/user/">
+                    <img src="/img/logo/shopee-48-inverse.png" height="45" width="45">
+                    <span class="fs-3 color-text-onPrimary ms-1" th:text="${title}">Shopee</span>
+                </a>
+            </div>
+            <form class="col-md-8 col-sm-7 d-flex align-items-center justify-content-center " th:action="@{/user/searchItem}"
+                  method="get">
+                <div class="d-flex flex-fill bg-white p-1 rounded">
+                    <input type="text" class="p-2 fs-6 border-0 search-bar" name="search" placeholder="Search..."/>
+                    <button type="submit" class="search-button fw-semibold border-0 rounded px-3">Search</button>
+                </div>
+            </form>
+            <div class="col-md-2 col-sm-2 d-flex align-items-end justify-content-center">
+                <a class="color-text-onPrimary mx-4" href="/user/cart"><i class="material-icons fs-2">shopping_cart</i></a>
+                <a class="color-text-onPrimary mx-4" href="/user/shop"><i class="material-icons fs-2">store</i></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<header th:fragment="mainHeader(title)" class="text-center fixed-top color-primary shadow-sm">
+    <div th:replace="~{this :: mainNav}"></div>
+    <div class="py-0 my-0 container-md">
+        <div class="row my-2 color-primary">
+            <div class="col-md-2 col-sm-4">
+                <a class="navbar-brand d-flex align-items-end justify-content-start" href="/user/">
+                    <img src="/img/logo/shopee-48-inverse.png" height="45" width="45">
+                    <span class="fs-3 color-text-onPrimary ms-1" th:text="${title}">Shopee</span>
+                </a>
+            </div>
+            <form class="col-md-8 col-sm-6 d-flex align-items-center justify-content-center " th:action="@{/user/searchBusiness}"
+                  method="get">
+                <div class="d-flex flex-fill bg-white p-1 rounded">
+                    <input type="text" class="p-2 fs-6 border-0 search-bar" name="search" placeholder="Search..."/>
+                    <button type="submit" class="search-button fw-semibold border-0 rounded px-3">Search</button>
+                </div>
+            </form>
+            <div class="col-md-2 col-sm-2 d-flex align-items-end justify-content-center">
+                <a class="color-text-onPrimary mx-4" href="/user/cart"><i class="material-icons fs-2">shopping_cart</i></a>
+                <a class="color-text-onPrimary mx-4" href="/user/shop"><i class="material-icons fs-2">store</i></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<header th:fragment="cartHeader" class="text-center fixed-top color-background shadow-sm">
+    <div th:replace="~{this :: mainNav}"></div>
+    <div class="py-0 my-0 container-md">
+        <div class="row my-3 ">
+            <div class="col-md-4 col-sm-6">
+                <a class="navbar-brand d-flex align-items-end justify-content-start" href="/user/">
+                    <img src="/img/logo/shopee-144.png" height="45" width="45">
+                    <span class="fs-4 ms-1 color-text-primary">Shopee | Shopping Cart</span>
+                </a>
+            </div>
+            <form class="col-md-8 col-sm-6 d-flex align-items-center justify-content-center " th:action="@{/user/searchCart}"
+                  method="get">
+                <div class="d-flex flex-fill color-primary p-1 rounded">
+                    <input type="text" class="p-2 fs-6 border-0 search-bar" name="search" placeholder="Search..."/>
+                    <button type="submit" class="search-button fw-semibold border-0 rounded px-3">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+
+<header th:fragment="simpleHeader(title, type)" class="text-center fixed-top color-background shadow-sm">
+    <div th:remove="${type}">
+        <div th:replace="~{this :: mainNav}"></div>
+    </div>
+    <div class="py-0 my-0 container-md">
+        <div class="row my-3 ">
+            <div class="col-md-4">
+                <a class="navbar-brand d-flex align-items-end justify-content-start" href="/user/">
+                    <img src="/img/logo/shopee-144.png" height="45" width="45">
+                    <span class="fs-4 ms-1 color-text-primary">Shopee | <span th:text="${title}"></span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div th:fragment="mainFooter" class="text-center pt-3 border-top border-5 border-warning bg-white">
+    <section class="container text-start py-5">
+        <h6 class="fw-bold text-dark text-nowrap">Shopee Indonesia - Jual Beli Online</h6>
+
+        <p class="text-dark">
+            Shopee adalah mobile-platform pertama di Asia Tenggara (Indonesia, Filipina, Malaysia, Singapura, Thailand,
+            Vietnam) dan Taiwan yang menawarkan transaksi jual beli online yang menyenangkan, gratis, dan terpercaya via
+            ponsel. Bergabunglah dengan jutaan pengguna lainnya dengan mulai mendaftarkan produk jualan dan berbelanja
+            berbagai penawaran menarik kapan saja, di mana saja. Keamanan transaksi kamu terjamin. Ayo gabung dalam
+            komunitas Shopee dan mulai belanja sekarang!
+        </p>
+
+        <br>
+
+        <h6 class="fw-bold text-dark text-nowrap">Belanja Online Terpercaya di Shopee&nbsp;</h6>
+
+        <p class="text-dark">
+            Temukan apapun kebutuhanmu dengan harga terbaik cuma di Shopee. Shopee adalah pusat perbelanjaan online di
+            mana kamu bisa mendapatkan update terkini dari penjual yang kamu ikuti, sekaligus dari pengguna favorit
+            kamu. Berbelanja dan berjualan menjadi lebih menyenangkan dengan fitur bagikan ke media sosial, di mana kamu
+            bisa menyebarkan produk yang kamu jual atau pun barang favorit kamu hanya dengan satu klik saja.
+        </p>
+
+        <p class="text-dark">
+            Belanja semua kebutuhanmu di Shopee dengan hati yang tenang! Cek rating dan review toko-toko yang ada dan
+            temukan penjual yang terpercaya dengan mudah. Kami selalu mengutamakan keamanan transaksi untuk para pembeli
+            kami!
+        </p>
+
+        <p class="text-dark">
+            Sebagai salah satu e-commerce terbesar di Asia Tenggara, Shopee pun senantiasa memberikan
+            penawaran-penawaran yang menguntungkan bagi pengguna. Hampir setiap bulan, Shopee selalu mengadakan kampanye
+            promo yang penuh dengan keuntungan spesial. Setiap saat, selalu ada promo spesial yang menunggu, mulai dari
+            <u><a class="text-dark" href="https://shopee.co.id/m/shopeepayday">ShopeePay Day</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/m/sms">ShopeePay Mantul Sale</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/m/ibu-serbu">Ibu Serbu</a></u>,
+            hingga promosi bulanan yang selalu ditunggu-tunggu seperti
+            <u><a class="text-dark" href="https://shopee.co.id/m/big-ramadan-sale">promo Big Ramadhan Sale</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/m/9-9">9.9 Super Shopping Day</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/m/10-10">10.10 Brands Festival</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/m/11-11">11.11 Big Sale</a></u>,
+            dan yang terbesar sepanjang tahun,
+            <u><a class="text-dark" href="https://shopee.co.id/m/12-12">12.12 Harbolnas</a></u>, dan
+            <u><a class="text-dark" href="https://shopee.co.id/m/12-12-spay-bday-deals">ShopeePay 12.12 Birthday
+                Deals</a></u>
+        </p>
+
+        <p class="text-dark">
+            Tidak yakin apa yang ingin kamu beli? Fitur hashtag dapat membantumu menemukan tren produk terkini. Jelajahi
+            berbagai kategori produk, seperti
+            <u><a class="text-dark" href="https://shopee.co.id/Kemeja-Formal-cat.33.18196.18197">Kemeja Pria</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Sofa-cat.46.9941.15998">Perlengkapan Rumah</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Tas-Selempang-cat.10217.18224.18225">Tas Selempang
+                Pria</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Action-Figure-cat.42.1235.12748">Hobi &amp;
+                Koleksi</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Makanan-Kaleng-Daging-cat.157.18437.18443">Makanan
+                &amp; Minuman</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Casual-Dress-cat.32.579.7271">Pakaian Wanita</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Baju-Tidur-dan-Pakaian-dalam-cat.14535.14539.15071">Fashion
+                Anak</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Clutch-cat.36.1053.5512">Clutch&nbsp;Tas
+                Wanita</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Masker-Wajah-cat.14840.18309.18316">Kosmetik</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Sepeda-Motor-cat.155.12338.16022">Otomotif</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Iphone-cat.40.1211.7429">Handphone &amp;
+                Aksesoris</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Susu-Bayi-cat.45.1269.12724">Ibu &amp; Bayi</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Analog-cat.37.12443.12448">Jam Tangan Analog</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Kamera-Mirrorless-cat.154.1407.12472">Kamera
+                Mirrorless</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Souvenir-Gantungan-Kunci-cat.10226.12875.12878">Souvenir
+                &amp; Pesta</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Kesehatan-Mata-cat.14780.14789.14792">Perawatan &amp;
+                Kesehatan</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Slip-On-cat.35.1027.12794">Sepatu Pria</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Kotak-Lensa-cat.38.14983.14986">Aksesoris Fashion</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Pashmina-cat.43.1085.7576">Fashion Muslim</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Lain-lain-cat.135.335.5387">Serba Serbi</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/PC-Desktop-cat.134.12119.12121">Komputer &amp;
+                Aksesoris</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Sepatu-Hak-Tali-cat.34.987.7559">Sepatu
+                Wanita</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Kulkas-cat.121.1309.12152">Elektronik</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Raket-Bulutangkis-cat.41.12286.12288">Perlengkapan
+                Olahraga</a></u>,
+            <u><a class="text-dark" href="https://shopee.co.id/Hotel-Voucher-cat.2160.19502.19503">Voucher</a></u>,
+            dan masih banyak lagi! Gunakan fitur Pencarian atau Rekomendasi untuk menemukan produk yang paling sesuai
+            dengan keinginanmu secara instan. Berbelanja menjadi semakin hemat dengan
+            <u><a class="text-dark" href="https://shopee.co.id/m/cashback-voucher">voucher dan cashback</a></u>
+            di Shopee. Ayo mulai belanja di Shopee sekarang!
+        </p>
+    </section>
+
+    <div th:replace="~{fragments/authFragments :: authFooter}"></div>
+</div>
+
+<div th:fragment="script">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/bootstrap5.3.2/js/bootstrap.min.js"></script>
+    <script src="/js/home.js"></script>
+</div>
+</body>
+</html>

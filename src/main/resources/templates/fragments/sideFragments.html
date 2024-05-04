@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="sidebar" class="color-primary col-auto col-md-2 vh-100 position-fixed start-0">
+  <div class="my-3 mx-1">
+    <div class="d-flex align-items-center">
+      <span class="fs-3 d-none d-md-inline my-2 align-middle">Home Page</span>
+    </div>
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item onHover-onPrimary">
+        <a href="/owner/"
+           class="nav-link color-text-onPrimary rounded d-flex justify-content-between">
+          <i class="material-icons fs-3">home</i>
+          <span class="fs-5 d-none d-md-inline">Home page</span>
+        </a>
+      </li>
+      <li class="nav-item onHover-onPrimary">
+        <a href="/user/shop"
+           class="nav-link color-text-onPrimary rounded d-flex justify-content-between">
+          <i class="material-icons fs-3">storefront</i>
+          <span class="fs-5 d-none d-md-inline">Customer Page</span>
+        </a>
+      </li>
+      <li class="nav-item onHover-onPrimary">
+        <a href="/owner/edit"
+           class="nav-link color-text-onPrimary rounded d-flex justify-content-between">
+          <i class="material-icons fs-3">edit</i>
+          <span class="fs-5 d-none d-md-inline">Edit Business</span>
+        </a>
+      </li>
+      <li class="nav-item onHover-onPrimary">
+        <a href="/owner/add/"
+           class="nav-link color-text-onPrimary rounded d-flex justify-content-between">
+          <i class="material-icons fs-3">add</i>
+          <span class="fs-5 d-none d-md-inline">Add Item</span>
+        </a>
+      </li>
+      <li class="nav-item onHover-onPrimary">
+        <a href="/logout"
+           class="nav-link color-text-onPrimary rounded d-flex justify-content-between"
+           onclick="showConfirmationPopup('Logout', $(this).attr('href')); return false;">
+          <i class="material-icons fs-3">exit_to_app</i>
+          <span class="fs-5 d-none d-md-inline">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div th:fragment="userInfoSidebar" class="col-md-4 col-sm-5 p-3">
+  <a href="/logout" class="btn btn-light w-100 my-2">Change Account</a>
+  <a href="/user/history" class="btn btn-light w-100 my-2">Check-Out History</a>
+  <a href="/user/contact" class="btn btn-light w-100 my-2">Profile</a>
+  <a href="/user/updateProfile" class="btn btn-light w-100 my-2">Change Profile</a>
+  <a href="/user/updatePassword" class="btn btn-light w-100 my-2">Change Password</a>
+  <a href="/auth/register/owner" class="btn btn-light w-100 my-2">Register As Owner</a>
+  <a href="/user/delUser" class="btn btn-danger w-100 my-2" onclick="showConfirmationPopup('Delete Account', $(this).attr('href')); return false;">Delete Account</a>
+  <a href="/logout" class="btn btn-secondary w-100 my-2" onclick="showConfirmationPopup('Logout', $(this).attr('href')); return false;">Logout</a>
+</div>
+</body>
+</html>

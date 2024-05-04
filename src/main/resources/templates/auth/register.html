@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/authFragments :: authHead (Login)}"></head>
+<body>
+<header th:replace="~{fragments/authFragments :: authHeader}"></header>
+
+<main>
+    <div class="container bg-light pb-5 p-4 m-5 col-md-4 rounded form">
+        <h3 class="text-center">Registration</h3>
+        <form th:action="@{/auth/register}" method="post" th:object="${user}">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
+            </div>
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}"
+                       required>
+            </div>
+            <div class="mb-3">
+                <label for="newPassword" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="newPassword" name="Password" minlength="8"
+                       th:field="*{password}" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
+                <span id="passwordError" style="color: red; display: none;">Passwords do not match.</span>
+            </div>
+            <div class="mb-3">
+                <label for="birthDate" class="form-label">Birth Date:</label>
+                <input type="date" class="form-control" id="birthDate" name="birthDate" th:format="'yyyy-MM-dd'"
+                       required>
+            </div>
+            <div class="mb-3 d-flex flex-nowrap">
+                <label class="form-check-label">Gender:</label>
+                <div th:each="gender : ${T(com.fooddelivery.finalprojectfredy.Data.Enum.Gender).values()}"
+                     class="ms-3">
+                    <input type="radio" class="form-check-input" th:id="'gender' + ${gender}" name="gender"
+                           th:value="${gender}" th:checked="${user.gender == gender}" required>
+                    <label class="form-check-label me-1" th:for="'gender' + ${gender}" th:text="${gender}"></label>
+                </div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="owner" name="owner">
+                <label class="form-check-label" for="owner">Owner</label>
+            </div>
+            <div th:if="${error}" class="alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
+            <div class="mb-3 text-center">
+                <button id="submit-button" type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+        <div class="register-link text-center mt-4">
+            have an account? <a class="color-text-primary" href="/auth/login">Log In now</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/authFragments :: authFooter}"></footer>
+
+<script>
+    document.getElementById('submit-button').addEventListener('click', function (event) {
+        var newPassword = document.getElementById('newPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var passwordError = document.getElementById('passwordError');
+
+        if (newPassword !== confirmPassword) {
+            event.preventDefault();
+            passwordError.style.display = 'block';
+        } else {
+            passwordError.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>

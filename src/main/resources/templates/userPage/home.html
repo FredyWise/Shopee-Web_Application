@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/mainFragments :: mainHead ('Shopee', 'tag')}"/>
+    <link rel="stylesheet" type="text/css" href="/css/fragment/slider.css">
+
+</head>
+<body>
+
+<div th:replace="~{fragments/mainFragments :: homeHeader('Shopee')}"></div>
+<main class="d-flex flex-column">
+    <div class="container p-4 d-flex align-items-center">
+        <div class="slider">
+            <div th:each="image : ${imageList}">
+                <div class="slide fade">
+                    <img th:src="*{image.img}" th:title="*{image.title}" th:alt="*{image.description}" class="w-100">
+                </div>
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="dotsbox text-center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+            </div>
+        </div>
+    </div>
+    <div class="container p-4 ">
+        <div class="row mx-md-5 px-md-5" th:unless="${items.isEmpty()}">
+            <div class="col-md-4 col-sm-6" th:each="product : ${items}">
+                <div class="card m-3">
+                    <img th:if="${product.image != null}" th:src="@{'/img/UserImage/' + ${product.image}}"
+                         class="card-img-top" alt="Image" height="200">
+                    <img th:unless="${product.image != null}" src="/img/Default.jpg" class="card-img-top"
+                         alt="Default Image" height="200">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${product.name}">Product Name</h4>
+                        <div>
+                            <p class="card-text text-default text-black toggle-show" th:text="${product.description}">N/A</p>
+                            <p class="card-text text-default text-black">Stock: <span
+                                    th:text="${product.quantity}">N/A</span></p>
+                            <p class="card-text text-default text-black">Price: $<span
+                                    th:text="${product.price}">N/A</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 th:if="${items.isEmpty()}">
+            Cart is Empty
+        </h1>
+    </div>
+</main>
+<footer th:replace="~{fragments/mainFragments :: mainFooter}"></footer>
+<div th:replace="~{fragments/mainFragments :: script}"></div>
+</body>
+</html>

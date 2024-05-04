@@ -1,0 +1,13 @@
+@import "fragment/style.css";
+@import "fragment/image.css";
+
+main {
+    background-image: var(--image-offer-12_12);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    align-items: center;
+    justify-content: end;
+    padding-right: 8vw;
+    padding-left: 8vw;
+}

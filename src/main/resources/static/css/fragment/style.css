@@ -1,0 +1,46 @@
+@import './style.css';
+@import "image.css";
+
+:root {
+    --primary-color: orangered;
+    --onPrimary-color: white;
+    /*--secondary-color: ;*/
+    --background-color: white;
+    --onBackground-color: black;
+}
+
+.color-primary {
+    background-color: var(--primary-color);
+    color: var(--onPrimary-color);
+}
+
+.color-background {
+    background-color: var(--background-color);
+    color: var(--onBackground-color);
+}
+
+.color-text-primary{
+    color: var(--primary-color);
+}
+
+.color-text-onPrimary{
+    color: var(--onPrimary-color);
+}
+
+.color-secondary{
+
+}
+
+.text-default{
+    text-decoration: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+}
+
+.onHover-onPrimary :hover{
+    background-color: var(--onPrimary-color);
+    color: var(--primary-color);
+}

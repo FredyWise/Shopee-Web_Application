@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="authHead (pageTitle)">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Shopee</title>
+    <link rel="stylesheet" href="/bootstrap5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/headings.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/fragment/form.css">
+    <link rel="stylesheet" type="text/css" href="/css/auth.css">
+</head>
+<body>
+
+<header th:fragment="authHeader" class="bg-light text-center">
+    <nav class="navbar navbar-light bg-light container-md">
+        <div class="navbar-brand ms-5 d-flex align-items-end">
+            <img src="/img/logo/shopee-144.png" height="40" width="40">
+            <span class="fs-3 color-text-primary">Shopee</span>
+        </div>
+        <a href="#" class="text-dark me-5 color-text-primary text-default">Need Help?</a>
+    </nav>
+</header>
+
+
+<footer th:fragment="authFooter" class="bg-light text-center pt-3 bottom-0">
+    <div class="container-md text-sm-center text-md-start py-3">
+        <div class="row text-center text-md-start">
+            <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-start">
+                <p class="mb-2 text-uppercase fw-bold text-dark text-nowrap">Customer Service</p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Help Centre</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">How To Buy</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">How To Sell</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Payment Methods</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Coins</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Guarantee</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Return & Refund</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Mall Return & Refund</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Contact Us</a>
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-start text-nowrap">
+                <p class="mb-2 text-uppercase fw-bold text-dark">About Shopee</p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">About Us</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Careers</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Policies</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Privacy Policy</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Blog</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Mall</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Seller Centre</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Seller Mentors</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Flash Deals</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Media Contact</a>
+                </p>
+                <p class="mb-0">
+                    <a href="#" class="text-dark small text-default">Shopee Ambassador Programme</a>
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-start text-nowrap">
+                <div class="row">
+                    <p class="mb-2 text-uppercase fw-bold text-dark">Payment</p>
+                    <div class="col-md-4 col-sm-3" th:each="i : ${#numbers.sequence(1, 4)}">
+                        <div class="mb-4">
+                            <img th:src="@{'/img/logo/payment' + ${i} + '.jpeg'}" class="img-fluid" alt="Payment Logo" height="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="mb-2 text-uppercase fw-bold text-dark">Logistics</p>
+                    <div class="col-md-4 col-sm-3" th:each="i : ${#numbers.sequence(1, 8)}">
+                        <div class="mb-4">
+                            <img th:src="@{'/img/logo/logistics' + ${i} + '.jpeg'}" class="img-fluid"
+                                 alt="Logistics Logo" height="50">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-start text-nowrap">
+                <p class="mb-2 text-uppercase fw-bold text-dark">Follow Us</p>
+                <p class="mb-1">
+                    <img src="/img/logo/Facebook.jpeg">
+                    <a href="#" class="text-dark text-default">Facebook</a>
+                </p>
+                <p class="mb-1">
+                    <img src="/img/logo/Instagram.jpeg">
+                    <a href="#" class="text-dark text-default">Instagram</a>
+                </p>
+                <p class="mb-1">
+                    <img src="/img/logo/LinkedIn.jpeg">
+                    <a href="#" class="text-dark text-default">LinkedIn</a>
+                </p>
+            </div>
+            <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 text-start text-nowrap">
+                <p class="mb-2 text-uppercase fw-bold text-dark">Shopee App Download</p>
+                <div class="row">
+                    <img class="col-6" src="/img/QR/AppDownload.jpeg">
+                    <div class="col-6">
+                        <img class="row my-1" src="/img/logo/AppGallery.jpeg" height="20">
+                        <img class="row my-1" src="/img/logo/GooglePlay.jpeg" height="20">
+                        <img class="row my-1" src="/img/logo/AppleAppstore.jpeg" height="20">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <hr class="">
+        <div class="row text-center text-md-start my-4">
+            <div class="col-md-3 text-md-start">
+                <p class="fs-6">© 2023 Shopee. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-9 text-md-end">
+                <p class="fs-6">
+                    Country & Region:
+                    <a href="#" class="small text-dark text-default">Singapore</a> |
+                    <a href="#" class="small text-dark text-default">Indonesia</a> |
+                    <a href="#" class="small text-dark text-default">Thailand</a> |
+                    <a href="#" class="small text-dark text-default">Malaysia</a> |
+                    <a href="#" class="small text-dark text-default">Vietnam</a> |
+                    <a href="#" class="small text-dark text-default">Philippines</a> |
+                    <a href="#" class="small text-dark text-default">Brazil</a> |
+                    <a href="#" class="small text-dark text-default">México</a> |
+                    <a href="#" class="small text-dark text-default">Colombia</a> |
+                    <a href="#" class="small text-dark text-default">Chile</a> |
+                    <a href="#" class="small text-dark text-default">Taiwan</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

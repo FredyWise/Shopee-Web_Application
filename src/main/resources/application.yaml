@@ -1,0 +1,27 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/final
+    username: tom
+    password: 123
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://root:9Wi2el0CaSveAUUxFUNQ@containers-us-west-14.railway.app:5657/railway
+#    username: root
+#    password: 9Wi2el0CaSveAUUxFUNQ
+#  jpa:
+#    database-platform: org.hibexrnate.dialect.MySQLDialect
+
+#logging:
+#  level:
+#    org.springframework.security: DEBUG
+
+# add purchase history page, try make the ??test class
+# make the connection in mapper layer

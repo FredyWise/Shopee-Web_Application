@@ -1,0 +1,11 @@
+.toggle-show{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.toggle-show.expanded {
+    -webkit-line-clamp: unset;
+}

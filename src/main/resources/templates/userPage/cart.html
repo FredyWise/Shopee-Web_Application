@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/mainFragments :: mainHead ('cart','none')}"></head>
+<body>
+
+<div th:replace="~{fragments/mainFragments :: cartHeader}"></div>
+<main class="container-md d-flex justify-content-center">
+    <div class="row mx-md-5 px-md-5" th:unless="${carts.isEmpty()}">
+        <div class="row border-1 border-black rounded color-background m-1" th:each="cart : ${carts}">
+            <div class="col-md-7 d-flex align-items-center my-3 ">
+                <img th:if="${cart.item.image != null}" th:src="@{'/img/UserImage/' + ${cart.item.image}}"
+                     alt="Image" class="rounded" height="65" width="65">
+                <img th:unless="${cart.item.image != null}" src="/img/Default.jpg" alt="Default Image"
+                     class="rounded" height="65" width="65">
+                <h4 class="mx-3" th:text="${cart.item.name}">Product Name</h4>
+            </div>
+            <div class="col-md-5 d-flex justify-content-between align-items-center">
+                <p class="my-1">Price: $<span th:text="${cart.item.price}">N/A</span></p>
+                <p class="my-1">Quantity: <span th:text="${cart.quantity}">N/A</span></p>
+                <p class="my-1">Total: $<span th:text="${cart.totalPrice}">N/A</span></p>
+                <a class="btn btn-danger my-1" th:href="@{/user/delCart/{id}(id=${cart.cartId})}">Remove</a>
+            </div>
+        </div>
+        <div class="nav color-background p-2 px-md-5 w-100">
+            <div class="container-md mx-md-5 px-md-5 d-flex justify-content-md-end justify-content-sm-between align-items-center">
+                <div class="d-flex flex-column align-items-md-end align-items-sm-start mx-3">
+                    <p class="fs-5 mb-2">Total Items: <span th:text="${totalItem}">N/A</span></p>
+                    <p class="fs-5 mb-2">Total Amount: $<span th:text="${totalAmount}">0.00</span></p>
+                </div>
+                <a href="/user/checkout" class="color-primary btn">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+    <h1 th:if="${carts.isEmpty()}">
+        Cart is Empty
+    </h1>
+</main>
+<div th:replace="~{fragments/mainFragments :: mainFooter}"></div>
+
+<script src="/js/fixedBottomCondition.js"></script>
+</body>
+</html>

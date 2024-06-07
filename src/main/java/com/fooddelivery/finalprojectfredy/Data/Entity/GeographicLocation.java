@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GeographicLocation {
-    private int geographicId;
-    private String fakeId;
+    private String geographicId;
     private String city;
     private String state;
     private String country;

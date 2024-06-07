@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/auth")
@@ -43,7 +44,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model,
-                               @RequestParam(value = "owner", required = false) String owner) {
+                               @RequestParam(value = "owner", required = false) String owner) throws InterruptedException, ExecutionException {
         try {
             userService.insertUser(user);
             if(owner!=null){
@@ -59,14 +60,14 @@ public class AuthenticationController {
     }
 
     @RequestMapping("/register/owner")
-    public String showOwnerRegistrationForm(Model model) {
+    public String showOwnerRegistrationForm(Model model) throws ExecutionException, InterruptedException {
         model.addAttribute("business", new Business());
         model.addAttribute("geographicLocation",businessService.getAllGeographicLocation());
         return "/auth/registerOwner";
     }
 
     @PostMapping("/register/owner")
-    public String registerOwnerBusiness(@ModelAttribute("business") Business business, Model model, HttpSession session) {
+    public String registerOwnerBusiness(@ModelAttribute("business") Business business, Model model, HttpSession session) throws ExecutionException, InterruptedException {
         try {
             User user = (User) session.getAttribute("user");
             if(user!=null){
@@ -84,7 +85,7 @@ public class AuthenticationController {
 
 
     @RequestMapping("/authentication")
-    public String check(Authentication authentication, Principal principal, HttpSession session, Model model) {
+    public String check(Authentication authentication, Principal principal, HttpSession session, Model model) throws ExecutionException, InterruptedException {
         try {
             User user = userService.getUserByUsernameOrEmail(principal.getName());
             session.setAttribute("user", user);
@@ -96,6 +97,7 @@ public class AuthenticationController {
                 return "redirect:/user/";
             }
         } catch (RuntimeException e) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\nCurrent Error: " + e.getMessage());
             model.addAttribute("error", e.getMessage());
             return "redirect:/auth/login";
         }

@@ -12,11 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BusinessAddress {
-    private int businessAddressId;
-    private String fakeId;
+    private String businessAddressId;
     private String addressLine;
-    private int geographicId;
-    private int businessId;
+    private String geographicId;
+    private String businessId;
 
     @ManyToOne
     @JoinColumn(name = "geographicId", referencedColumnName = "geographic_id")

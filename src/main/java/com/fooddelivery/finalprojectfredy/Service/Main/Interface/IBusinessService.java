@@ -5,15 +5,17 @@ import com.fooddelivery.finalprojectfredy.Data.Entity.GeographicLocation;
 import com.fooddelivery.finalprojectfredy.Data.Entity.User;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface IBusinessService {
-    Business getBusinessById(int businessId);
-    Business getBusinessByOwnerId(int ownerId);
-    List<Business> getBusinessByName(String name);
-    Business searchBusinessItemByName(int BusinessId, String itemName);
-    List<Business> getAllBusinesses();
-    List<GeographicLocation> getAllGeographicLocation();//change later
-    void insertBusiness(Business business, User tempUser);
+    Business getBusinessById(String businessId) throws ExecutionException, InterruptedException;
+    Business getBusinessByOwnerId(String ownerId) throws ExecutionException, InterruptedException;
+    List<Business> getBusinessByName(String name) throws ExecutionException, InterruptedException;
+    Business searchBusinessItemByName(String BusinessId, String itemName) throws ExecutionException, InterruptedException;
+    List<Business> getAllBusinesses() throws ExecutionException, InterruptedException;
+    void insertBusiness(Business business, User tempUser) throws ExecutionException, InterruptedException;
     void updateBusiness(Business business);
-    void deleteBusiness(int businessId);
+    void deleteBusiness(String businessId);
+
+    List<GeographicLocation> getAllGeographicLocation() throws ExecutionException, InterruptedException;//change later
 }

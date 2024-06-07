@@ -6,20 +6,21 @@ import com.fooddelivery.finalprojectfredy.Data.Entity.User;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface IUserService {
-    User getUserById(int userId);
-    User getUserByUsernameOrEmail(String usernameOrEmail);
-    void insertUser(User user);
+    User getUserById(String userId) throws ExecutionException, InterruptedException;
+    User getUserByUsernameOrEmail(String usernameOrEmail) throws ExecutionException, InterruptedException;
+    void insertUser(User user) throws InterruptedException, ExecutionException;
     void updateUserPassword(User user);
     void updateUserProfile(User user, HttpSession session);
-    void deleteUser(int userId);
+    void deleteUser(String userId);
 
-    List<Cart> getCartItemsByUserId(int userId);
-    List<Cart> getUserItemsByItemName(int userId, String itemName);
-    void addCartItem(int itemId, int userId);
-    void deleteCartItem(int cartId);
-    List<Order> getOrderHistory(int userId);
+    List<Cart> getCartItemsByUserId(String userId) throws ExecutionException, InterruptedException;
+    List<Cart> getUserItemsByItemName(String userId, String itemName) throws ExecutionException, InterruptedException;
+    void addCartItem(String itemId, String userId) throws ExecutionException, InterruptedException;
+    void deleteCartItem(String cartId);
 
-    void addOrder(List<Cart> carts);
+    List<Order> getOrderHistory(String userId) throws ExecutionException, InterruptedException;
+    void addOrder(List<Cart> carts) throws InterruptedException, ExecutionException;
 }

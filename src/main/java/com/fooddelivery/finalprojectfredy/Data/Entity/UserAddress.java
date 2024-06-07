@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserAddress {
-    private int userAddressId;
+    private String userAddressId;
     private String fakeId;
-    private int userId;
+    private String userId;
     private String postalCode;
     private String addressLine1;
     private String addressLine2;
-    private int geographicId;
+    private String geographicId;
 }

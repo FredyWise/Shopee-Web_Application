@@ -1,7 +1,7 @@
 package com.fooddelivery.finalprojectfredy;
 
 import com.fooddelivery.finalprojectfredy.Data.Entity.User;
-import com.fooddelivery.finalprojectfredy.Data.Mappers.IUserMapper;
+import com.fooddelivery.finalprojectfredy.Data.JDBCMappers.IUserMapper;
 import com.fooddelivery.finalprojectfredy.Service.Main.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
+import java.util.concurrent.ExecutionException;
+
 @ExtendWith(MockitoExtension.class)
 public class IUserMapperTest {
 
@@ -23,7 +25,7 @@ public class IUserMapperTest {
     private UserService userService;
 
     @Test
-    void testGetUserByEmail() {
+    void testGetUserByEmail() throws ExecutionException, InterruptedException {
         String email = "test@example.com";
         User expectedUser = new User(); // Set the expected user details
 
@@ -35,7 +37,7 @@ public class IUserMapperTest {
     }
 
     @Test
-    void testGetUserByUsername() {
+    void testGetUserByUsername() throws ExecutionException, InterruptedException {
         String username = "testUser";
         User expectedUser = new User(); // Set the expected user details
 
@@ -47,8 +49,8 @@ public class IUserMapperTest {
     }
 
     @Test
-    void testGetUserById() {
-        int userId = 1;
+    void testGetUserById() throws ExecutionException, InterruptedException {
+        String userId = "1";
         User expectedUser = new User(); // Set the expected user details
 
         when(userMapper.getUserById(eq(userId))).thenReturn(expectedUser);
@@ -59,7 +61,7 @@ public class IUserMapperTest {
     }
 
     @Test
-    void testInsertUser() {
+    void testInsertUser() throws InterruptedException, ExecutionException {
         User userToInsert = new User(); // Set the user details to insert
 
         userService.insertUser(userToInsert);
@@ -78,7 +80,7 @@ public class IUserMapperTest {
 
     @Test
     void testDeleteUser() {
-        int userIdToDelete = 1;
+        String userIdToDelete = "1";
 
         userService.deleteUser(userIdToDelete);
 

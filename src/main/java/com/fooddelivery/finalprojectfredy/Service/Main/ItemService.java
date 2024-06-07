@@ -4,8 +4,10 @@ import com.fooddelivery.finalprojectfredy.Data.Entity.Business;
 import com.fooddelivery.finalprojectfredy.Data.Entity.Category;
 import com.fooddelivery.finalprojectfredy.Data.Entity.Item;
 import com.fooddelivery.finalprojectfredy.Data.Entity.User;
-import com.fooddelivery.finalprojectfredy.Data.Mappers.ICategoryMapper;
-import com.fooddelivery.finalprojectfredy.Data.Mappers.IItemMapper;
+import com.fooddelivery.finalprojectfredy.Data.FirestoreMapper.FirestoreCategoryRepository;
+import com.fooddelivery.finalprojectfredy.Data.FirestoreMapper.FirestoreItemRepository;
+// import com.fooddelivery.finalprojectfredy.Data.JDBCMappers.ICategoryMapper;
+// import com.fooddelivery.finalprojectfredy.Data.JDBCMappers.IItemMapper;
 import com.fooddelivery.finalprojectfredy.Service.Main.Interface.IItemService;
 import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.fooddelivery.finalprojectfredy.Service.ImageService.saveImage;
 
@@ -20,50 +23,50 @@ import static com.fooddelivery.finalprojectfredy.Service.ImageService.saveImage;
 public class ItemService implements IItemService {
 
     @Autowired
-    private IItemMapper itemMapper;
+    private FirestoreItemRepository itemMapper;
     @Autowired
-    private ICategoryMapper categoryMapper;
+    private FirestoreCategoryRepository categoryMapper;
     @Autowired
     private BusinessService businessService;
 
     //ITEM
     @Override
-    public List<Item> getAllItems() {
+    public List<Item> getAllItems() throws ExecutionException, InterruptedException {
         List<Item> items = itemMapper.getAllItems();
         System.out.println(items);
         return items;
     }
 
     @Override
-    public Item getItemById(int itemId) {
+    public Item getItemById(String itemId) throws ExecutionException, InterruptedException {
         Item item = itemMapper.getItemById(itemId);
         System.out.println(item);
         return item;
     }
 
     @Override
-    public List<Item> getItemsByName(String name) {
+    public List<Item> getItemsByName(String name) throws ExecutionException, InterruptedException {
         List<Item> items = itemMapper.getItemsByName(name);
         System.out.println(items);
         return items;
     }
 
     @Override
-    public List<Item> getItemsByType(String type) {
+    public List<Item> getItemsByType(String type) throws ExecutionException, InterruptedException {
         List<Item> items = itemMapper.getItemsByType(type);
         System.out.println(items);
         return items;
     }
 
     @Override
-    public List<Item> getItemsByBusinessId(int businessId) {
+    public List<Item> getItemsByBusinessId(String businessId) throws ExecutionException, InterruptedException {
         List<Item> items = itemMapper.getItemsByBusinessId(businessId);
         System.out.println(items);
         return items;
     }
 
     @Override
-    public List<Item> getItemsByCategoryId(int categoryId) {
+    public List<Item> getItemsByCategoryId(String categoryId) throws ExecutionException, InterruptedException {
         List<Item> items = itemMapper.getItemsByCategory(categoryId);
         System.out.println(items);
         return items;
@@ -98,14 +101,14 @@ public class ItemService implements IItemService {
     }
 
     @Override
-    public void deleteItem(int itemId) {
+    public void deleteItem(String itemId) {
         System.out.println("del"+itemId);
         itemMapper.deleteItem(itemId);
     }
 
 
     @Override
-    public List<Category> getAllCategory(){
+    public List<Category> getAllCategory() throws ExecutionException, InterruptedException{
         List<Category> categories= categoryMapper.getAllCategories();
         System.out.println(categories);
         return categories;

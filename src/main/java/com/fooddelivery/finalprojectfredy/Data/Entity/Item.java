@@ -13,14 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-    private int itemId;
-    private String fakeId;
+    private String itemId;
     private String name;
     private String description;
     private double price;
     private int quantity;
-    private int categoryId;
-    private int businessId;
+    private String categoryId;
+    private String businessId;
     private String image;
 
     private MultipartFile tempFile;

@@ -14,10 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Business {
-    private int businessId;
-    private String fakeId;
+    private String businessId;
     private String name;
-    private int ownerId;
+    private String ownerId;
     private String phoneNumber;
     private double rating;
     private String image;

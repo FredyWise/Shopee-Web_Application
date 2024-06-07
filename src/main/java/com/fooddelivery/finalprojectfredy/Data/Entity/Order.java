@@ -15,9 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-    private int orderId;
-    private String fakeId;
-    private int userId;
+    private String orderId;
+    private String userId;
     private LocalDate orderDate;
     private double totalPrice;
     private Status status;

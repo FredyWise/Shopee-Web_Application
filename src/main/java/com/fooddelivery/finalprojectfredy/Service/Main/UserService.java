@@ -7,7 +7,12 @@ import com.fooddelivery.finalprojectfredy.Data.Entity.OrderItem;
 import com.fooddelivery.finalprojectfredy.Data.Entity.User;
 import com.fooddelivery.finalprojectfredy.Data.Enum.Role;
 import com.fooddelivery.finalprojectfredy.Data.Enum.Status;
-import com.fooddelivery.finalprojectfredy.Data.Mappers.*;
+import com.fooddelivery.finalprojectfredy.Data.FirestoreMapper.FirestoreCartRepository;
+import com.fooddelivery.finalprojectfredy.Data.FirestoreMapper.FirestoreOrderItemRepository;
+import com.fooddelivery.finalprojectfredy.Data.FirestoreMapper.FirestoreOrderRepository;
+import com.fooddelivery.finalprojectfredy.Data.FirestoreMapper.FirestoreUserRepository;
+// import com.fooddelivery.finalprojectfredy.Data.FirestoreMapper.FirestoreItemRepository;
+import com.fooddelivery.finalprojectfredy.Data.JDBCMappers.*;
 import com.fooddelivery.finalprojectfredy.Service.Main.Interface.IUserService;
 import com.fooddelivery.finalprojectfredy.utils.Calculation;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.fooddelivery.finalprojectfredy.Service.ImageService.saveImage;
 
@@ -24,34 +30,33 @@ import static com.fooddelivery.finalprojectfredy.Service.ImageService.saveImage;
 public class UserService implements IUserService {
 
     @Autowired
-    private IUserMapper userMapper;
+    private FirestoreUserRepository userMapper;
     @Autowired
-    private ICartMapper cartMapper;
+    private FirestoreCartRepository cartMapper;
     @Autowired
-    private IItemMapper itemMapper;
+    private FirestoreOrderRepository orderMapper;
     @Autowired
-    private IOrderMapper orderMapper;
-    @Autowired
-    private IOrderItemMapper orderItemMapper;
+    private FirestoreOrderItemRepository orderItemMapper;
 
     //USER
     @Override
-    public User getUserById(int userId) {
+    public User getUserById(String userId) throws ExecutionException, InterruptedException {
         return this.userMapper.getUserById(userId);
     }
 
     @Override
-    public User getUserByUsernameOrEmail(String usernameOrEmail) {
+    public User getUserByUsernameOrEmail(String usernameOrEmail) throws ExecutionException, InterruptedException {
         User user = userMapper.getUserByUsername(usernameOrEmail);
+        System.out.println("Current user: " + user);
         if (user == null) {
             user = userMapper.getUserByEmail(usernameOrEmail);
+            System.out.println("Current user: " + user);
         }
-        System.out.println("Current user: " + user);
         return user;
     }
 
     @Override
-    public void insertUser(User user) {
+    public void insertUser(User user) throws InterruptedException, ExecutionException {
         user.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));
         user.setRole(Role.User);
         System.out.println(user);
@@ -82,7 +87,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteUser(int userId) {
+    public void deleteUser(String userId) {
         System.out.println("delete: "+userId);
         userMapper.deleteUser(userId);
     }
@@ -90,14 +95,14 @@ public class UserService implements IUserService {
 
     //CART
     @Override
-    public List<Cart> getCartItemsByUserId(int userId) {
+    public List<Cart> getCartItemsByUserId(String userId) throws ExecutionException, InterruptedException {
         List<Cart> carts = cartMapper.getCartItemsByUserId(userId);
         System.out.println(carts);
         return carts;
     }
 
     @Override
-    public List<Cart> getUserItemsByItemName(int userId, String itemName) {
+    public List<Cart> getUserItemsByItemName(String userId, String itemName) throws ExecutionException, InterruptedException {
         List<Cart> carts = cartMapper.getUserCartItemsByItemName(userId,itemName);
         System.out.println(carts);
         return carts;
@@ -105,7 +110,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public void addCartItem(int itemId, int userId) {
+    public void addCartItem(String itemId, String userId) throws ExecutionException, InterruptedException {
         boolean cartFound = false;
         List<Cart> carts = cartMapper.getCartItemsByUserId(userId);
         System.out.println(carts);
@@ -126,13 +131,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteCartItem(int cartId) {
+    public void deleteCartItem(String cartId) {
         cartMapper.deleteCartItem(cartId);
     }
 
     //CHECKOUT
     @Override
-    public List<Order> getOrderHistory(int userId) {
+    public List<Order> getOrderHistory(String userId) throws ExecutionException, InterruptedException {
         List<Order> orders = orderMapper.getOrdersByUserId(userId);
         System.out.println(orders);
         return orders;
@@ -140,7 +145,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public void addOrder(List<Cart> carts) {
+    public void addOrder(List<Cart> carts) throws InterruptedException, ExecutionException {
         LocalDate today = LocalDate.now();
         Order order = new Order();
         order.setOrderDate(today);
@@ -148,7 +153,7 @@ public class UserService implements IUserService {
         order.setStatus(Status.Pending);
         order.setTotalPrice(Double.parseDouble(Calculation.getTotalPriceOnCart(carts)));
         orderMapper.insertOrder(order);
-        int orderId = orderMapper.getOrderByAll(order);
+        String orderId = orderMapper.getOrderByAll(order);
         for (Cart cart : carts) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrderId(orderId);

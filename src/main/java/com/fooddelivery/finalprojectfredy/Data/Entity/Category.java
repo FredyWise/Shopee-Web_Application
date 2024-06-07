@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
-    private int categoryId;
-    private String fakeId;
+    private String categoryId;
     private String name;
 }
 

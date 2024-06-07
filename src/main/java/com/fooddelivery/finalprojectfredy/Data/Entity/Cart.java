@@ -12,10 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cart {
-    private int cartId;
-    private String fakeId;
-    private int userId;
-    private int itemId;
+    private String cartId;
+    private String userId;
+    private String itemId;
     private int quantity;
 
     @ManyToOne

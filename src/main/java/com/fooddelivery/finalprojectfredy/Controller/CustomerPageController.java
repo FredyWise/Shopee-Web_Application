@@ -13,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.fooddelivery.finalprojectfredy.utils.Calculation.getTotalItemOnCart;
 import static com.fooddelivery.finalprojectfredy.utils.Calculation.getTotalPriceOnCart;
 
 @Controller
+@RestController
 @RequestMapping("/user")
 public class CustomerPageController {
     @Autowired
@@ -29,7 +31,7 @@ public class CustomerPageController {
 
 
     @RequestMapping("/")
-    public String homePage(Model model, HttpSession session){
+    public String homePage(Model model, HttpSession session) throws ExecutionException, InterruptedException{
         List<Image> imageList = ImageService.getImageList();
         User user = (User) session.getAttribute("user");
         List<Item> itemList = itemService.getAllItems();
@@ -40,7 +42,7 @@ public class CustomerPageController {
     }
 
     @GetMapping("/searchItem")
-    public String searchItem(@RequestParam("search") String searchQuery, Model model, HttpSession session){
+    public String searchItem(@RequestParam("search") String searchQuery, Model model, HttpSession session) throws ExecutionException, InterruptedException{
         List<Image> imageList = ImageService.getImageList();
         User user = (User) session.getAttribute("user");
         List<Item> itemList = itemService.getItemsByName(searchQuery);
@@ -51,7 +53,7 @@ public class CustomerPageController {
     }
 
     @RequestMapping("/shop")
-    public String storeList(Model model, HttpSession session){
+    public String storeList(Model model, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         model.addAttribute("businessList",businessService.getAllBusinesses());
@@ -59,14 +61,14 @@ public class CustomerPageController {
     }
 
     @GetMapping("/shop/{id}")
-    public String getStoreDetails(@PathVariable("id") int businessId, Model model) {
+    public String getStoreDetails(@PathVariable("id") String businessId, Model model) throws ExecutionException, InterruptedException {
         Business business = businessService.getBusinessById(businessId);
         model.addAttribute("business", business);
         return "userPage/storeItem";
     }
 
     @GetMapping ("/searchBusiness")
-    public String searchBusiness(@RequestParam("search") String searchQuery, Model model, HttpSession session){
+    public String searchBusiness(@RequestParam("search") String searchQuery, Model model, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         model.addAttribute("businessList", businessService.getBusinessByName(searchQuery));
@@ -74,7 +76,7 @@ public class CustomerPageController {
     }
 
     @GetMapping ("/searchItems/{id}")
-    public String searchItems(@PathVariable("id") int businessId,@RequestParam("search") String searchQuery, Model model, HttpSession session) {
+    public String searchItems(@PathVariable("id") String businessId,@RequestParam("search") String searchQuery, Model model, HttpSession session) throws ExecutionException, InterruptedException {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         model.addAttribute("business", businessService.searchBusinessItemByName(businessId, searchQuery));
@@ -82,7 +84,7 @@ public class CustomerPageController {
     }
 
     @RequestMapping("/cart")
-    public String cartList(Model model, HttpSession session){
+    public String cartList(Model model, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         List<Cart> carts = userService.getCartItemsByUserId(user.getUserId());
@@ -93,7 +95,7 @@ public class CustomerPageController {
     }
 
     @GetMapping ("/searchCart")
-    public String searchCart(@RequestParam("search") String searchQuery, Model model, HttpSession session){
+    public String searchCart(@RequestParam("search") String searchQuery, Model model, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         List<Cart> carts = userService.getUserItemsByItemName(user.getUserId(), searchQuery);
@@ -104,20 +106,20 @@ public class CustomerPageController {
     }
 
     @GetMapping("/addCart/{id}")
-    public String addCartItem(@PathVariable("id") int itemId, HttpSession session){
+    public String addCartItem(@PathVariable("id") String itemId, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         userService.addCartItem(itemId, user.getUserId());
         return "redirect:/user/cart";
     }
 
     @GetMapping("/delCart/{id}")
-    public String delCartItem(@PathVariable("id") int cartId) {
+    public String delCartItem(@PathVariable("id") String cartId) {
         userService.deleteCartItem(cartId);
         return "redirect:/user/cart";
     }
 
     @RequestMapping("/checkout")
-    public String checkOut(Model model, HttpSession session){
+    public String checkOut(Model model, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         List<Cart> carts = userService.getCartItemsByUserId(user.getUserId());
@@ -128,7 +130,7 @@ public class CustomerPageController {
     }
 
     @PostMapping("/checkout")
-    public String checkOutSuccess(Model model, HttpSession session){
+    public String checkOutSuccess(Model model, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         List<Cart> carts = userService.getCartItemsByUserId(user.getUserId());
@@ -137,7 +139,7 @@ public class CustomerPageController {
     }
 
     @RequestMapping("/history")
-    public String history(Model model, HttpSession session){
+    public String history(Model model, HttpSession session) throws ExecutionException, InterruptedException{
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         List<Order> orders = userService.getOrderHistory(user.getUserId());

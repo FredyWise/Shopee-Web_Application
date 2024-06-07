@@ -17,8 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private int userId;
-    private String fakeId;
+    private String userId;
     private String username;
     private String email;
     private String phoneNumber;
@@ -30,12 +29,12 @@ public class User {
 
     private MultipartFile tempFile;
 
-    @OneToMany(mappedBy = "user")
-    private UserAddress userAddress;
+    // @OneToMany(mappedBy = "user")
+    // private UserAddress userAddress;
 
-    @OneToMany(mappedBy = "user")
-    private List<Cart> carts;
+    // @OneToMany(mappedBy = "user")
+    // private List<Cart> carts;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    // @OneToMany(mappedBy = "user")
+    // private List<Order> orders;
 }
